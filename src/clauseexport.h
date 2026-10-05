@@ -3,10 +3,10 @@
 
 struct kissat;
 
-void kissat_export_redundant_clause (kissat * solver, unsigned glue, unsigned size, unsigned *lits);
-void kissat_export_redundant_binary (kissat * solver, unsigned lit, unsigned other);
+void kissat_export_redundant_clause (struct kissat * solver, unsigned glue, unsigned size, unsigned *lits);
+void kissat_export_redundant_binary (struct kissat * solver, unsigned lit, unsigned other);
 
-void shweep_export_equivalence(kissat *solver, unsigned lit, unsigned other);
-void shweep_export_unit(kissat *solver, unsigned lit);
+void shweep_export_equivalence(struct kissat *solver, unsigned lit, unsigned other);
+void shweep_export_unit(struct kissat *solver, unsigned lit);
 
 #endif
