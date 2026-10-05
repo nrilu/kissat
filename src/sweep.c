@@ -498,6 +498,12 @@ static void add_core (sweeper *sweeper, unsigned core_idx) {
       CHECK_AND_ADD_UNIT (unit);
       ADD_UNIT_TO_PROOF (unit);
       kissat_assign_unit (solver, unit, "sweeping backbone reason");
+      if (GET_OPTION (exportmore)) {
+        //(@1) Armin went here directly with kissat_assign_unit instead of 
+        //kissat_learned_unit, probably to be able to pass the reason strings.
+        //This means we need to do the export explicitly here. 
+        kissat_export_redundant_clause (solver, 1, 1, &unit);
+      }
       //Catch unit for sharing in MallobSweep
       if (GET_OPTION (mallob_sweeping)) {
         shweep_export_unit(solver, unit);
@@ -964,6 +970,10 @@ static void substitute_connected_clauses (sweeper *sweeper, unsigned lit,
           CHECK_AND_ADD_UNIT (lit);
           ADD_UNIT_TO_PROOF (lit);
           kissat_assign_unit (solver, lit, "substituted binary clause");
+          if (GET_OPTION (exportmore)) {
+            //See (@1) on why we need to export manually
+            kissat_export_redundant_clause (solver, 1, 1, &lit);
+          }
           //Catch unit for sharing in MallobSweep
           if (GET_OPTION (mallob_sweeping)) {
             shweep_export_unit(solver, lit);
@@ -1051,6 +1061,10 @@ static void substitute_connected_clauses (sweeper *sweeper, unsigned lit,
           CHECK_AND_ADD_UNIT (unit);
           ADD_UNIT_TO_PROOF (unit);
           kissat_assign_unit (solver, unit, "substituted large clause");
+          //See (@1) on why we need to export manually
+          if (GET_OPTION (exportmore)) {
+            kissat_export_redundant_clause (solver, 1, 1, &unit);
+          }
           //Catch for sharing in MallobSweep
           if (GET_OPTION (mallob_sweeping)) {
             shweep_export_unit(solver, unit);
@@ -1352,6 +1366,11 @@ static bool sweep_equivalence_candidates (sweeper *sweeper, unsigned lit,
   add_core (sweeper, 1);
   add_binary (solver, not_lit, other);
   clear_core (sweeper, 1);
+  
+  if (GET_OPTION (exportmore)) {
+    kissat_export_redundant_binary (solver, lit, not_other);
+    kissat_export_redundant_binary (solver, not_lit, other);
+  }
 
   if (GET_OPTION (mallob_sweeping)) {
     shweep_export_equivalence(solver, lit, other);

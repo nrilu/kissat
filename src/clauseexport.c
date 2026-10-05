@@ -19,6 +19,11 @@ void kissat_export_redundant_clause (kissat * solver, unsigned glue, unsigned si
   solver->consume_clause (solver->consume_clause_state, size, glue);
 }
 
+void kissat_export_redundant_binary (kissat * solver, unsigned lit, unsigned other) {
+  unsigned lits[2] = {lit, other};
+  kissat_export_redundant_clause (solver, 1, 2, lits);
+}
+
 
 void shweep_export_equivalence(kissat *solver, unsigned lit, unsigned other) {
   if (!solver->shweep_export_eq_callback) return;

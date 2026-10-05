@@ -1,6 +1,10 @@
 #ifndef _inlineassign_h_INLCUDED
 #define _inlineassign_h_INLCUDED
 
+//Armin cares a lot about compilation specifics (inlining, compile units, etc)
+//so hopefully this additional include doesnt disturb that
+#include "clauseexport.h" 
+
 #ifdef FAST_ASSIGN
 #define kissat_assign kissat_fast_assign
 #endif
@@ -41,6 +45,9 @@ static inline void kissat_assign (kissat *solver, const bool probing,
       ADD_UNIT_TO_PROOF (lit);
       reason = UNIT_REASON;
       binary = false;
+      if (GET_OPTION (exportmore)) {
+        kissat_export_redundant_clause (solver, 1, 1, &lit);
+      }
     }
   }
 

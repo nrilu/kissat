@@ -50,6 +50,8 @@
   OPTION (emaslow, 1e5, 100, 1e6, "slow exponential moving average window") \
   EMBOPT (embedded, 1, 0, 1, "parse and apply embedded options") \
   OPTION (equivalences, 1, 0, 1, "extract and eliminate equivalence gates") \
+  OPTION (exportmore, 0, 0, 1, "export clauses from more places") \
+  OPTION (exportmore_maxsize, 4, 0, INT_MAX, "maximum size for exported clauses from more places") \
   OPTION (extract, 1, 0, 1, "extract gates in variable elimination") \
   OPTION (factor, 1, 0, 1, "bounded variable addition") \
   OPTION (factorcandrounds, 2, 0, INT_MAX, "candidates reduction rounds") \

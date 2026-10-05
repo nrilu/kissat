@@ -2,6 +2,7 @@
 #include "collect.h"
 #include "inline.h"
 #include "promote.h"
+#include "clauseexport.h"
 
 static clause *large_on_the_fly_strengthen (kissat *solver, clause *c,
                                             unsigned lit) {
@@ -47,6 +48,9 @@ static clause *large_on_the_fly_strengthen (kissat *solver, clause *c,
     }
   }
   LOGCLS (c, "unsorted on-the-fly strengthened");
+  if (GET_OPTION (exportmore) && c->size <= (unsigned)GET_OPTION (exportmore_maxsize)) {
+    kissat_export_redundant_clause (solver, c->redundant ? c->glue : c->size - 1, c->size, lits);
+  }
   {
     assert (VALUE (lits[1]) < 0);
     unsigned highest_pos = 1;
@@ -131,6 +135,9 @@ static clause *binary_on_the_fly_strengthen (kissat *solver, clause *c,
   assert (second != INVALID_LIT);
   LOGBINARY (first, second, "on-the-fly strengthened");
   kissat_new_binary_clause (solver, first, second);
+  if (GET_OPTION (exportmore)) {
+    kissat_export_redundant_binary (solver, first, second);
+  }
   const reference ref = kissat_reference_clause (solver, c);
   kissat_unwatch_blocking (solver, c->lits[0], ref);
   kissat_unwatch_blocking (solver, c->lits[1], ref);

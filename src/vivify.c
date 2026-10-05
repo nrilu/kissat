@@ -1,6 +1,7 @@
 #include "vivify.h"
 #include "allocate.h"
 #include "backtrack.h"
+#include "clauseexport.h"
 #include "collect.h"
 #include "colors.h"
 #include "decide.h"
@@ -663,8 +664,13 @@ static void vivify_learn_binary (kissat *solver, clause *c) {
   assert (SIZE_STACK (solver->clause) == 2);
   if (c->redundant)
     (void) kissat_new_redundant_clause (solver, 1);
-  else
+  else {
     (void) kissat_new_irredundant_clause (solver);
+    if (GET_OPTION (exportmore)) {
+      //in the redundant case the export is already happening
+      kissat_export_redundant_clause (solver, 1, 2, BEGIN_STACK (solver->clause));
+    }
+  }
   kissat_mark_clause_as_garbage (solver, c);
 }
 
@@ -754,6 +760,10 @@ static void vivify_learn_large (kissat *solver, clause *c,
   if (!irredundant && c->glue >= new_size)
     kissat_promote_clause (solver, c, new_size - 1);
   c->searched = 2;
+  
+  if (GET_OPTION (exportmore) && new_size <= (unsigned)GET_OPTION (exportmore_maxsize)) {
+    kissat_export_redundant_clause (solver, irredundant ? new_size - 1 : c->glue, new_size, lits);
+  }
 
   if (implied == INVALID_LIT) {
     LOGCLS (c, "vivified shrunken after conflict");
@@ -803,8 +813,13 @@ static void binary_strengthen_after_instantiation (kissat *solver,
   PUSH_STACK (solver->clause, second);
   if (c->redundant)
     (void) kissat_new_redundant_clause (solver, 1);
-  else
+  else {
     (void) kissat_new_irredundant_clause (solver);
+    if (GET_OPTION (exportmore)) {
+      //in the redundant case the export is already happening
+      kissat_export_redundant_clause (solver, 1, 2, BEGIN_STACK (solver->clause));
+    }
+  }
 
   kissat_mark_clause_as_garbage (solver, c);
   kissat_backtrack_without_updating_phases (solver, 0);
@@ -846,6 +861,10 @@ static void large_strengthen_after_instantiation (kissat *solver, clause *c,
     kissat_promote_clause (solver, c, new_size - 1);
   c->searched = 2;
   LOGCLS (c, "vivified strengthened through instantiation");
+  
+  if (GET_OPTION (exportmore) && new_size <= (unsigned)GET_OPTION (exportmore_maxsize)) {
+    kissat_export_redundant_clause (solver, irredundant ? new_size - 1 : c->glue, new_size, lits);
+  }
 
   kissat_backtrack_without_updating_phases (solver, solver->level - 2);
   vivify_watch_clause (solver, c);
