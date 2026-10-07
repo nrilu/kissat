@@ -850,6 +850,7 @@ static void add_binary_clause (closure *closure, unsigned a, unsigned b) {
   }
   if (GET_OPTION (exportmore)) {
     kissat_export_redundant_binary(solver, a, b);
+    solver->exportmore_statistics.bin_congruence++;
   }
 }
 

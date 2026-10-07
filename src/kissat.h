@@ -121,6 +121,21 @@ struct shweep_statistics {
 struct shweep_statistics shweep_get_statistics(kissat *solver);
 //--------------------------------------------------------------------------
 
+struct exportmore_statistics {
+  unsigned long unit_sweep;
+  unsigned long unit_inlineassign;
+  
+  unsigned long bin_sweep; 
+  unsigned long bin_strengthen;
+  unsigned long bin_forwardsub;
+  unsigned long bin_congruence;
+  unsigned long bin_vivify;
+  
+  unsigned long cls_strengthen;
+  unsigned long cls_forwardsub;
+  unsigned long cls_vivify;
+};
+struct exportmore_statistics kissat_get_exportmore_statistics(kissat *solver);
 
 // Basic "external" statistics struct with some interesting properties of kissat's search.
 struct kissat_statistics {unsigned long propagations; unsigned long decisions; unsigned long conflicts; unsigned long restarts; 

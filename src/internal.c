@@ -676,6 +676,10 @@ struct kissat_statistics kissat_get_statistics (kissat * solver)
   return stats_out;
 }
 
+struct exportmore_statistics kissat_get_exportmore_statistics(kissat *solver) {
+  return solver->exportmore_statistics; 
+}
+
 void kissat_trace_proof_internally (kissat * solver, void *state,
     void (*on_drup_derivation) (void* state, const int* lits, int nbLits, int glue),
     void (*on_lrup_import)     (void* state, unsigned long id, const int* lits, int nbLits, const unsigned char* sigData),

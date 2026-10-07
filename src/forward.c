@@ -432,6 +432,7 @@ static bool forward_subsumed_clause (kissat *solver, clause *c,
         c->subsume = true;
         if (GET_OPTION (exportmore) && new_size <= (unsigned)GET_OPTION (exportmore_maxsize)) {
           kissat_export_redundant_clause(solver, new_size - 1, new_size, lits);
+          solver->exportmore_statistics.cls_forwardsub++;
         }
         LOGCLS (c, "forward strengthened");
       } else {
@@ -470,7 +471,8 @@ static bool forward_subsumed_clause (kissat *solver, clause *c,
         PUSH_STACK (*new_binaries, first);
         PUSH_STACK (*new_binaries, second);
         if (GET_OPTION (exportmore)) {
-         kissat_export_redundant_binary (solver, first, second); 
+          kissat_export_redundant_binary (solver, first, second); 
+          solver->exportmore_statistics.bin_forwardsub++;
         }
       }
     }

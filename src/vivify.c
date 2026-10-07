@@ -669,6 +669,7 @@ static void vivify_learn_binary (kissat *solver, clause *c) {
     if (GET_OPTION (exportmore)) {
       //in the redundant case the export is already happening
       kissat_export_redundant_clause (solver, 1, 2, BEGIN_STACK (solver->clause));
+      solver->exportmore_statistics.bin_vivify++;
     }
   }
   kissat_mark_clause_as_garbage (solver, c);
@@ -763,6 +764,7 @@ static void vivify_learn_large (kissat *solver, clause *c,
   
   if (GET_OPTION (exportmore) && new_size <= (unsigned)GET_OPTION (exportmore_maxsize)) {
     kissat_export_redundant_clause (solver, irredundant ? new_size - 1 : c->glue, new_size, lits);
+    solver->exportmore_statistics.cls_vivify++;
   }
 
   if (implied == INVALID_LIT) {
@@ -818,6 +820,7 @@ static void binary_strengthen_after_instantiation (kissat *solver,
     if (GET_OPTION (exportmore)) {
       //in the redundant case the export is already happening
       kissat_export_redundant_clause (solver, 1, 2, BEGIN_STACK (solver->clause));
+      solver->exportmore_statistics.bin_vivify++;
     }
   }
 
@@ -864,6 +867,7 @@ static void large_strengthen_after_instantiation (kissat *solver, clause *c,
   
   if (GET_OPTION (exportmore) && new_size <= (unsigned)GET_OPTION (exportmore_maxsize)) {
     kissat_export_redundant_clause (solver, irredundant ? new_size - 1 : c->glue, new_size, lits);
+    solver->exportmore_statistics.cls_vivify++;
   }
 
   kissat_backtrack_without_updating_phases (solver, solver->level - 2);
