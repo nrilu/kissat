@@ -848,7 +848,7 @@ static void add_binary_clause (closure *closure, unsigned a, unsigned b) {
     litpair litpair = {.lits = {a < b ? a : b, a < b ? b : a}};
     PUSH_STACK (closure->binaries, litpair);
   }
-  if (GET_OPTION (exportmore)) {
+  if (GET_OPTION (exportmore) && GET_OPTION (exportmore_bincongr)) {
     kissat_export_redundant_binary(solver, a, b);
     solver->exportmore_statistics.bin_congruence++;
   }
