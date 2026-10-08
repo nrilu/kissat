@@ -45,7 +45,7 @@ void kissat_print_statistics (kissat *solver);
 
 void kissat_write_profile (kissat *solver, const char *path);
 
-
+const char *kissat_get_current_profilename(kissat *solver);
 
 // *** API for Mallob ***
 
