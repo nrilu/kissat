@@ -45,7 +45,7 @@ static inline void kissat_assign (kissat *solver, const bool probing,
       ADD_UNIT_TO_PROOF (lit);
       reason = UNIT_REASON;
       binary = false;
-      if (GET_OPTION (exportmore)) {
+      if (GET_OPTION (exportmore_unit_inlineassign)) {
         kissat_export_redundant_clause (solver, 1, 1, &lit);
         solver->exportmore_statistics.unit_inlineassign++;
       }

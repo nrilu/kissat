@@ -666,7 +666,7 @@ static void vivify_learn_binary (kissat *solver, clause *c) {
     (void) kissat_new_redundant_clause (solver, 1);
   else {
     (void) kissat_new_irredundant_clause (solver);
-    if (GET_OPTION (exportmore)) {
+    if (GET_OPTION (exportmore_bin_vivify)) {
       //in the redundant case the export is already happening
       kissat_export_redundant_clause (solver, 1, 2, BEGIN_STACK (solver->clause));
       solver->exportmore_statistics.bin_vivify++;
@@ -762,7 +762,7 @@ static void vivify_learn_large (kissat *solver, clause *c,
     kissat_promote_clause (solver, c, new_size - 1);
   c->searched = 2;
   
-  if (GET_OPTION (exportmore) && new_size <= (unsigned)GET_OPTION (exportmore_maxsize)) {
+  if (GET_OPTION (exportmore_cls_vivify) && new_size <= (unsigned)GET_OPTION (exportmore_maxsize)) {
     kissat_export_redundant_clause (solver, irredundant ? new_size - 1 : c->glue, new_size, lits);
     solver->exportmore_statistics.cls_vivify++;
   }
@@ -817,7 +817,7 @@ static void binary_strengthen_after_instantiation (kissat *solver,
     (void) kissat_new_redundant_clause (solver, 1);
   else {
     (void) kissat_new_irredundant_clause (solver);
-    if (GET_OPTION (exportmore)) {
+    if (GET_OPTION (exportmore_bin_vivify)) {
       //in the redundant case the export is already happening
       kissat_export_redundant_clause (solver, 1, 2, BEGIN_STACK (solver->clause));
       solver->exportmore_statistics.bin_vivify++;
@@ -865,7 +865,7 @@ static void large_strengthen_after_instantiation (kissat *solver, clause *c,
   c->searched = 2;
   LOGCLS (c, "vivified strengthened through instantiation");
   
-  if (GET_OPTION (exportmore) && new_size <= (unsigned)GET_OPTION (exportmore_maxsize)) {
+  if (GET_OPTION (exportmore_cls_vivify) && new_size <= (unsigned)GET_OPTION (exportmore_maxsize)) {
     kissat_export_redundant_clause (solver, irredundant ? new_size - 1 : c->glue, new_size, lits);
     solver->exportmore_statistics.cls_vivify++;
   }

@@ -48,7 +48,7 @@ static clause *large_on_the_fly_strengthen (kissat *solver, clause *c,
     }
   }
   LOGCLS (c, "unsorted on-the-fly strengthened");
-  if (GET_OPTION (exportmore) && c->size <= (unsigned)GET_OPTION (exportmore_maxsize)) {
+  if (GET_OPTION (exportmore_cls_strengthen) && c->size <= (unsigned)GET_OPTION (exportmore_maxsize)) {
     kissat_export_redundant_clause (solver, c->redundant ? c->glue : c->size - 1, c->size, lits);
     solver->exportmore_statistics.cls_strengthen++;
   }
@@ -136,7 +136,7 @@ static clause *binary_on_the_fly_strengthen (kissat *solver, clause *c,
   assert (second != INVALID_LIT);
   LOGBINARY (first, second, "on-the-fly strengthened");
   kissat_new_binary_clause (solver, first, second);
-  if (GET_OPTION (exportmore)) {
+  if (GET_OPTION (exportmore_bin_strengthen)) {
     kissat_export_redundant_binary (solver, first, second);
     solver->exportmore_statistics.bin_strengthen++;
   }
