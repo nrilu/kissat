@@ -46,7 +46,7 @@ void kissat_print_statistics (kissat *solver);
 
 void kissat_write_profile (kissat *solver, const char *path);
 
-
+const char *kissat_get_current_profilename(kissat *solver);
 
 // *** API for Mallob ***
 
@@ -122,6 +122,21 @@ struct shweep_statistics {
 struct shweep_statistics shweep_get_statistics(kissat *solver);
 //--------------------------------------------------------------------------
 
+struct exportmore_statistics {
+  unsigned long unit_sweep;
+  unsigned long unit_inlineassign;
+  
+  unsigned long bin_sweep; 
+  unsigned long bin_strengthen;
+  unsigned long bin_forwardsub;
+  unsigned long bin_congruence;
+  unsigned long bin_vivify;
+  
+  unsigned long cls_strengthen;
+  unsigned long cls_forwardsub;
+  unsigned long cls_vivify;
+};
+struct exportmore_statistics kissat_get_exportmore_statistics(kissat *solver);
 
 //Import and export named arrays and stacks
 const void *kissat_export_array (kissat *solver, const char *name, size_t *bytes_exported);

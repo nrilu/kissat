@@ -1,5 +1,6 @@
 #include "forward.h"
 #include "allocate.h"
+#include "clauseexport.h"
 #include "eliminate.h"
 #include "inline.h"
 #include "print.h"
@@ -429,6 +430,10 @@ static bool forward_subsumed_clause (kissat *solver, clause *c,
         c->size = new_size;
         c->searched = 2;
         c->subsume = true;
+        if (GET_OPTION (exportmore) && new_size <= (unsigned)GET_OPTION (exportmore_maxsize)) {
+          kissat_export_redundant_clause(solver, new_size - 1, new_size, lits);
+          solver->exportmore_statistics.cls_forwardsub++;
+        }
         LOGCLS (c, "forward strengthened");
       } else {
         assert (non_false == 3);
@@ -465,6 +470,10 @@ static bool forward_subsumed_clause (kissat *solver, clause *c,
         solver->statistics.clauses_binary++;
         PUSH_STACK (*new_binaries, first);
         PUSH_STACK (*new_binaries, second);
+        if (GET_OPTION (exportmore)) {
+          kissat_export_redundant_binary (solver, first, second); 
+          solver->exportmore_statistics.bin_forwardsub++;
+        }
       }
     }
   }

@@ -14,6 +14,7 @@
 #include "terminate.h"
 #include "trail.h"
 #include "utilities.h"
+#include "clauseexport.h"
 
 #include <stddef.h>
 #include <stdint.h>
@@ -846,6 +847,10 @@ static void add_binary_clause (closure *closure, unsigned a, unsigned b) {
     kissat_new_unwatched_binary_clause (solver, a, b);
     litpair litpair = {.lits = {a < b ? a : b, a < b ? b : a}};
     PUSH_STACK (closure->binaries, litpair);
+  }
+  if (GET_OPTION (exportmore) && GET_OPTION (exportmore_bincongr)) {
+    kissat_export_redundant_binary(solver, a, b);
+    solver->exportmore_statistics.bin_congruence++;
   }
 }
 

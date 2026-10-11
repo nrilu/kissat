@@ -115,6 +115,15 @@ void kissat_stop (kissat *solver, profile *profile) {
   pthread_mutex_unlock(&solver->profiles.mtx);
 }
 
+const char *kissat_get_current_profilename(kissat *solver) {
+  pthread_mutex_lock(&solver->profiles.mtx);
+  const char* name = EMPTY_STACK(solver->profiles.stack) 
+    ? "kissats_profile_stack_is_empty" 
+    : TOP_STACK(solver->profiles.stack)->name;
+  pthread_mutex_unlock(&solver->profiles.mtx);
+  return name;
+}
+
 void kissat_stop_search_and_start_simplifier (kissat *solver,
                                               profile *profile) {
   pthread_mutex_lock(&solver->profiles.mtx);
