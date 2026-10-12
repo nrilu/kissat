@@ -83,6 +83,7 @@
   OPTION (forcephase, 0, 0, 1, "force initial phase") \
   OPTION (forward, 1, 0, 1, "forward subsumption in BVE") \
   OPTION (forwardeffort, 100, 0, 1e6, "effort in per mille") \
+  OPTION (forwardbutnoelim, 0, 0, 1, "only forward subsumption but no elimination afterwards") \
   OPTION (ifthenelse, 1, 0, 1, "extract and eliminate if-then-else gates") \
   OPTION (incremental, 0, 0, 1, "enable incremental solving") \
   OPTION (jumpreasons, 1, 0, 1, "jump binary reasons") \
