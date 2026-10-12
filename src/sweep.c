@@ -1065,7 +1065,8 @@ static void substitute_connected_clauses (sweeper *sweeper, unsigned lit,
           kissat_assign_unit (solver, unit, "substituted large clause");
           //See (@1) on why we need to export manually
           if (GET_OPTION (exportmore_unit_sweep)) {
-            kissat_export_redundant_clause (solver, 1, 1, &unit);
+            unsigned exportunit = unit; //silences compiler warning
+            kissat_export_redundant_clause (solver, 1, 1, &exportunit);
             solver->exportmore_statistics.unit_sweep++;
           }
           //Catch for sharing in MallobSweep

@@ -51,17 +51,17 @@
   EMBOPT (embedded, 1, 0, 1, "parse and apply embedded options") \
   OPTION (equivalences, 1, 0, 1, "extract and eliminate equivalence gates") \
   OPTION (exportmore, 0, 0, 1, "export clauses from more places") \
-  OPTION (exportmore_unit_sweep, 0, 0, 1, "export sweep units") \
-  OPTION (exportmore_unit_inlineassign, 0, 0, 1, "export units at inline assign") \
-  OPTION (exportmore_bin_sweep, 0, 0, 1, "export sweep binaries") \
-  OPTION (exportmore_bin_strengthen, 0, 0, 1, "export strengthen binaries") \
-  OPTION (exportmore_bin_forwardsub, 0, 0, 1, "export forward subsumption binaries") \
   OPTION (exportmore_bin_congruence, 0, 0, 1, "export congruence closure binaries") \
+  OPTION (exportmore_bin_forwardsub, 0, 0, 1, "export forward subsumption binaries") \
+  OPTION (exportmore_bin_strengthen, 0, 0, 1, "export strengthen binaries") \
+  OPTION (exportmore_bin_sweep, 0, 0, 1, "export sweep binaries") \
   OPTION (exportmore_bin_vivify, 0, 0, 1, "export vivification binaries") \
-  OPTION (exportmore_cls_strengthen, 0, 0, 1, "export strengthen clauses (up to exportmore_maxsize)") \
   OPTION (exportmore_cls_forwardsub, 0, 0, 1, "export forward subsumption clauses (up to exportmore_maxsize)") \
+  OPTION (exportmore_cls_strengthen, 0, 0, 1, "export strengthen clauses (up to exportmore_maxsize)") \
   OPTION (exportmore_cls_vivify, 0, 0, 1, "export vivification clauses (up to exportmore_maxsize)") \
   OPTION (exportmore_maxsize, 4, 0, INT_MAX, "maximum size for exported clauses from more places") \
+  OPTION (exportmore_unit_inlineassign, 0, 0, 1, "export units at inline assign") \
+  OPTION (exportmore_unit_sweep, 0, 0, 1, "export sweep units") \
   OPTION (extract, 1, 0, 1, "extract gates in variable elimination") \
   OPTION (factor, 1, 0, 1, "bounded variable addition") \
   OPTION (factorcandrounds, 2, 0, INT_MAX, "candidates reduction rounds") \
