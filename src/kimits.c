@@ -58,7 +58,9 @@ uint64_t kissat_scale_delta (kissat *solver, const char *pretty,
 
 static void init_enabled (kissat *solver) {
   bool probe;
-  if (!GET_OPTION (simplify))
+  if (GET_OPTION (probecheap))
+    probe = true;
+  else if (!GET_OPTION (simplify))
     probe = false;
   else if (!GET_OPTION (probe))
     probe = false;

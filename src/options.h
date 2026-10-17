@@ -118,6 +118,7 @@
   OPTION (preprocessrounds, 1, 1, INT_MAX, "initial preprocessing rounds") \
   OPTION (preprocessweep, 1, 0, 1, "sweep preprocessing") \
   OPTION (probe, 1, 0, 1, "enable probing") \
+  OPTION (probecheap, 0, 0, 1, "enable only cheap probing") \
   OPTION (probeinit, 100, 0, INT_MAX, "initial probing interval") \
   OPTION (probeint, 100, 2, INT_MAX, "probing interval") \
   OPTION (proberounds, 2, 1, INT_MAX, "probing rounds") \

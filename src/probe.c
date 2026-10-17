@@ -30,6 +30,11 @@ static void probe (kissat *solver) {
   kissat_phase (solver, "probe", GET (probings),
                 "probing limit hit after %" PRIu64 " conflicts",
                 solver->limits.probe.conflicts);
+  if (GET_OPTION (probecheap)) {
+    kissat_substitute (solver, false);
+    kissat_transitive_reduction (solver);
+    kissat_binary_clauses_backbone (solver);
+  } else {
   kissat_congruence (solver);
   kissat_substitute (solver, false);
   kissat_binary_clauses_backbone (solver);
@@ -39,6 +44,7 @@ static void probe (kissat *solver) {
   kissat_transitive_reduction (solver);
   kissat_binary_clauses_backbone (solver);
   kissat_factor (solver);
+  }
   STOP_SIMPLIFIER_AND_RESUME_SEARCH (probe);
 }
 
