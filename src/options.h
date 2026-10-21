@@ -78,6 +78,7 @@
   OPTION (fasteloccs, 100, 1, 1000, "fast elimination occurrence limit") \
   OPTION (fastelrounds, 4, 1, 1000, "fast elimination rounds") \
   OPTION (fastelsub, 1, 0, 1, "forward subsuming fast variable elimination") \
+  OPTION (fastel_fix, 0, 0, 1, "fix(?) potential(?) typo from Armin") \
   OPTION (flushproof, 0, 0, 1, "flush proof lines immediately") \
   OPTION (focusedtiers, 1, 0, 1, "always used focused mode tiers") \
   OPTION (forcephase, 0, 0, 1, "force initial phase") \
