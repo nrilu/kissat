@@ -858,9 +858,7 @@ void kissat_fast_variable_elimination (kissat *solver) {
       const size_t pos = flush_occurrences (solver, lit);
       if (pos > fasteloccs)
         continue;
-      unsigned not_lit = LIT (pivot);
-      if (GET_OPTION (fastel_fix))
-        not_lit = NOT(lit);
+      const unsigned not_lit = GET_OPTION (fastel_fix) ? NOT(lit) : LIT (pivot);
       const size_t neg = flush_occurrences (solver, not_lit);
       if (neg > fasteloccs)
         continue;
