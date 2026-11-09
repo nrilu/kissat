@@ -73,8 +73,8 @@
   OPTION (factorsize, 5, 2, INT_MAX, "bounded variable addition clause size") \
   OPTION (factorstructural, 0, 0, 1, "structural bounded variable addition") \
   OPTION (fastel, 0, 0, 1, "initial fast variable elimination") \
-  OPTION (fastel_fix, 0, 0, 1, "fix(?) potential(?) typo from Armin") \
   OPTION (fastelclslim, 100, 1, INT_MAX, "fast elimination clause length limit") \
+  OPTION (fastelfix, 0, 0, 1, "fix typo from Armin") \
   OPTION (fastelim, 8, 1, 1000, "fast elimination resolvents limit") \
   OPTION (fasteloccs, 100, 1, 1000, "fast elimination occurrence limit") \
   OPTION (fastelrounds, 4, 1, 1000, "fast elimination rounds") \
